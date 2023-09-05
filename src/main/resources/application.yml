@@ -4,6 +4,17 @@ spring:
     username: root
     password:
 
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: fb048c130a1016
+    password: 8b5a599a9df4e3
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -21,4 +32,6 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+
+
 

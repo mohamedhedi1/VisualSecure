@@ -34,7 +34,8 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/auth/**"
+                        "/auth/**", "/password-reset/**","/**"
+
 
                 )
                 .permitAll()

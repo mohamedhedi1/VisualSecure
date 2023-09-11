@@ -1,17 +1,19 @@
 package com.mohamedhedi1.VisualSecure.user;
 
-
+import com.mohamedhedi1.VisualSecure.permission.Permission;
 import com.mohamedhedi1.VisualSecure.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -22,23 +24,44 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Integer id;
-    private String firstname;
-    private String lastname;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    @NaturalId(mutable = true)
     private String email;
     private String password;
 
-    private String image;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST,
+                    CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "user_permissions",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+    private Collection<Permission> permissions = new HashSet<>();
+
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
+
+        System.out.println("authorityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+        System.out.println("authorityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for(Permission permission : permissions)
+        {
+            System.out.println(permission.getName());
+            authorities.add(new SimpleGrantedAuthority(permission.getName()));
+           //authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        }
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return authorities;
     }
 
     @Override

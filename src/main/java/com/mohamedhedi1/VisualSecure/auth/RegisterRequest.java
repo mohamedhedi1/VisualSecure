@@ -1,10 +1,14 @@
 package com.mohamedhedi1.VisualSecure.auth;
 
-import com.mohamedhedi1.VisualSecure.user.Role;
+import com.mohamedhedi1.VisualSecure.permission.Permission;
+import com.mohamedhedi1.VisualSecure.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 @Data
 @Builder
@@ -16,5 +20,7 @@ public class RegisterRequest {
     private String lastname;
     private String email;
     private String password;
-    private Role role;
+    private Collection<Permission> permissions = new HashSet<>();
+
+
 }

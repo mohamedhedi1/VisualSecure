@@ -1,13 +1,12 @@
 package com.mohamedhedi1.VisualSecure.token;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mohamedhedi1.VisualSecure.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -29,6 +28,7 @@ public class Token {
 
     public boolean expired;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;

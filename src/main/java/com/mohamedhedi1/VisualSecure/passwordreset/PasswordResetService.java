@@ -6,7 +6,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Optional;
 
@@ -68,7 +66,7 @@ public class PasswordResetService {
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td style=\"text-align:center;\">\n" +
-                "                          <a href=\"http://localhost:8080/reset-password?token="+token+"\" title=\"logo\" target=\"_blank\">\n" +
+                "                          <a href=\"http://localhost:4200/newpassword?token="+token+"\" title=\"logo\" target=\"_blank\">\n" +
                 "                            <img width=\"60\" src=\"https://i.ibb.co/hL4XZp2/android-chrome-192x192.png\" title=\"logo\" alt=\"logo\">\n" +
                 "                          </a>\n" +
                 "                        </td>\n" +
@@ -100,7 +98,7 @@ public class PasswordResetService {
                 "\n" +
                 "To reset your password, click the following link and follow the instructions:\n" +
                 "                                        </p>\n" +
-                "                                        <a href=\"http://localhost:8080/reset-password?token="+token+"\"\n" +
+                "                                        <a href=\"http://localhost:4200/newpassword?token="+token+"\"\n" +
                 "                                            style=\"background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;\">Reset\n" +
                 "                                            Password</a>\n" +
                 "                                    </td>\n" +

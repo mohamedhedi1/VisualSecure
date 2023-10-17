@@ -36,6 +36,7 @@ public class SecurityConfiguration {
             "/auth/**",
             "/password-reset/**",
             "/users/**",
+
             "/roles/**",
             "/SpringBootProject/**",
             "/permissions/**"

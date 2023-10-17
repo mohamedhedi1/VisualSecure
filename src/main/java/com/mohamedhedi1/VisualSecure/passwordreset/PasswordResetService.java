@@ -140,7 +140,7 @@ public class PasswordResetService {
                         .after(Date.from(LocalDateTime.now()
                                 .atZone(ZoneId.systemDefault()).toInstant())) )
                 {
-                    Optional<User> userOptional = userRepository.findById(passwordResetToken.getUser().getId());
+                    Optional<User> userOptional = userRepository.findById(Long.valueOf(passwordResetToken.getUser().getId()));
                     if(userOptional.isPresent()){
                         User user = userOptional.get();
                         user.setPassword(passwordEncoder.encode(newPassword));

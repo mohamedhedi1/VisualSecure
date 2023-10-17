@@ -30,11 +30,11 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .permissions(request.getPermissions())
+                .role(request.getRole())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -77,7 +77,7 @@ public class AuthenticationService {
     }
 
     private void revokeAllUserTokens(User user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(Long.valueOf(user.getId()));
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {
